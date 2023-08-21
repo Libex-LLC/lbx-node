@@ -18,7 +18,7 @@ type GenesisToken struct {
 
 func DefaultGenesisToken(owner sdk.AccAddress) GenesisToken {
 	token, err := types.NewToken(
-		"Binance Chain Native Token",
+		"Libex Chain Native Token",
 		types.NativeTokenSymbol,
 		types.NativeTokenTotalSupply,
 		owner,

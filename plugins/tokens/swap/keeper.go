@@ -17,7 +17,7 @@ import (
 var (
 	// bnb prefix address:  bnb1wxeplyw7x8aahy93w96yhwm7xcq3ke4f8ge93u
 	// tbnb prefix address: tbnb1wxeplyw7x8aahy93w96yhwm7xcq3ke4ffasp3d
-	AtomicSwapCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainAtomicSwapCoins")))
+	AtomicSwapCoinsAccAddr = sdk.AccAddress(crypto.AddressHash([]byte("LibexChainAtomicSwapCoins")))
 )
 
 type Keeper struct {

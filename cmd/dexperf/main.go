@@ -1,4 +1,4 @@
-//nolint
+// nolint
 package main
 
 import (
@@ -326,7 +326,7 @@ func generateTokens(sIndex int, eIndex int, flag bool) []string {
 			}
 			time.Sleep(stime * time.Millisecond)
 			expireTime := strconv.FormatInt(time.Now().Unix()+3600, 10)
-			proposalRep := execCommand("tbnbcli", "gov", "submit-list-proposal", "--home="+*home, "--node="+*node, "--chain-id="+*chainId, "--from="+*owner, "--deposit=200000000000:BNB", "--base-asset-symbol="+token, "--quote-asset-symbol=BNB", "--init-price=100000000", "--title="+token+":BNB", "--description="+token+":BNB", "--expire-time="+expireTime, "--json=true")
+			proposalRep := execCommand("tbnbcli", "gov", "submit-list-proposal", "--home="+*home, "--node="+*node, "--chain-id="+*chainId, "--from="+*owner, "--deposit=200000000000:LBX", "--base-asset-symbol="+token, "--quote-asset-symbol=LBX", "--init-price=100000000", "--title="+token+":LBX", "--description="+token+":LBX", "--expire-time="+expireTime, "--json=true")
 			proposalJson := toJSON{}
 			err = MakeCodec().UnmarshalJSON(proposalRep.Bytes(), &proposalJson)
 			if err != nil {
@@ -343,7 +343,7 @@ func generateTokens(sIndex int, eIndex int, flag bool) []string {
 			time.Sleep(stime * time.Millisecond)
 			execCommand("tbnbcli", "gov", "vote", "--home="+*home, "--node="+*node, "--chain-id="+*chainId, "--from="+*owner, "--proposal-id="+pid, "--option=yes")
 			time.Sleep(time.Duration(*votingTime) * time.Second)
-			execCommand("tbnbcli", "dex", "list", "--home="+*home, "--node="+*node, "--base-asset-symbol="+token, "--quote-asset-symbol=BNB", "--init-price=100000000", "--from="+*owner, "--chain-id="+*chainId, "--proposal-id="+pid)
+			execCommand("tbnbcli", "dex", "list", "--home="+*home, "--node="+*node, "--base-asset-symbol="+token, "--quote-asset-symbol=LBX", "--init-price=100000000", "--from="+*owner, "--chain-id="+*chainId, "--proposal-id="+pid)
 			time.Sleep(stime * time.Millisecond)
 			tokens = append(tokens, token)
 			sIndex++
@@ -353,7 +353,7 @@ func generateTokens(sIndex int, eIndex int, flag bool) []string {
 }
 
 func initializeAccounts(tokens []string, flag bool) []string {
-	tokens = append(tokens, "BNB")
+	tokens = append(tokens, "LBX")
 	if flag == true {
 		type Transfer struct {
 			To     string `json:"to"`
@@ -445,7 +445,7 @@ func allocateCreate(tokens []string) {
 	nameIndex := 0
 	for i := 0; i < *batchSize; i++ {
 		for j := 0; j < len(tokens); j++ {
-			symbol := fmt.Sprintf("%s_BNB", tokens[j])
+			symbol := fmt.Sprintf("%s_LBX", tokens[j])
 			fmt.Printf("allocating #%d\n", createIndex)
 			if largeBuyers != nil && isLargeBuyer(nameIndex, largeBuyers) {
 				createChn <- buildC(sortKeys[nameIndex], buy, symbol, 9990000, 10000000000, "GTE")

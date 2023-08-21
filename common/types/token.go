@@ -23,8 +23,8 @@ const (
 	TokenDecimals       int8  = 8
 	TokenMaxTotalSupply int64 = 9000000000000000000 // 90 billions with 8 decimal digits
 
-	NativeTokenSymbol             = "BNB" // number of zeros = TokenSymbolTxHashSuffixLen
-	NativeTokenSymbolDotBSuffixed = "BNB" + TokenSymbolDotBSuffix
+	NativeTokenSymbol             = "LBX" // number of zeros = TokenSymbolTxHashSuffixLen
+	NativeTokenSymbolDotBSuffixed = "LBX" + TokenSymbolDotBSuffix
 	NativeTokenTotalSupply        = 2e16
 )
 

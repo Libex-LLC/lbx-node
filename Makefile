@@ -21,7 +21,7 @@ BUILD_CLI_FLAGS = -tags "${BUILD_CLI_TAGS}" -ldflags "-X github.com/bnb-chain/no
 # Without -lstdc++ on CentOS we will encounter link error, solution comes from: https://stackoverflow.com/a/29285011/1147187
 BUILD_CGOFLAGS = CGO_ENABLED=1 CGO_LDFLAGS="-lleveldb -lsnappy -lstdc++"
 BUILD_CFLAGS = ${BUILD_FLAGS} -tags "cleveldb"
-BUILD_TESTNET_FLAGS = ${BUILD_CLI_FLAGS} -ldflags "-X github.com/bnb-chain/node/app.Bech32PrefixAccAddr=tbnb"
+BUILD_TESTNET_FLAGS = ${BUILD_CLI_FLAGS} -ldflags "-X github.com/bnb-chain/node/app.Bech32PrefixAccAddr=tlbx"
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -170,29 +170,35 @@ test: get_tools
 
 # uses https://github.com/sasha-s/go-deadlock/ to detect potential deadlocks
 set_with_deadlock:
+	@echo "--> Running set_with_deadlock"
 	cp go.mod go.mod_bak
 	cp go.sum go.sum_bak
 	find . -name "*.go" | grep -v "vendor/" | xargs -n 1 sed -i.mutex_bak 's/sync.RWMutex/deadlock.RWMutex/'
 	find . -name "*.go" | grep -v "vendor/" | xargs -n 1 sed -i.mutex_bak 's/sync.Mutex/deadlock.Mutex/'
 	find . -name "*.go" | grep -v "vendor/" | grep -v ".git/"  | xargs -n 1 goimports -w
+	@echo "--> End set_with_deadlock"
 
 # cleanes up after you ran test_with_deadlock
 cleanup_after_test_with_deadlock:
+	@echo "--> Running cleanup_after_test_with_deadlock"
 	find . -name "*.go" | grep -v "vendor/" | xargs -n 1 sed -i.mutex_bak 's/deadlock.RWMutex/sync.RWMutex/'
 	find . -name "*.go" | grep -v "vendor/" | xargs -n 1 sed -i.mutex_bak 's/deadlock.Mutex/sync.Mutex/'
 	find . -name "*.go" | grep -v "vendor/" | grep -v ".git/" | xargs -n 1 goimports -w
 	find . -name "*.go.mutex_bak" | grep -v "vendor/" | xargs rm
 	mv go.mod_bak go.mod
 	mv go.sum_bak go.sum
+	@echo "--> End cleanup_after_test_with_deadlock"
 
 
 test_race:
 	@echo "--> Running go test --race"
 	@go test -race $(PACKAGES)
+	@echo "--> End go test --race"
 
 test_unit:
 	@echo "--> Running go test"
 	@go test $(PACKAGES)
+	@echo "--> End go test"
 
 test_coverage:
 	@echo "--> Running go test"

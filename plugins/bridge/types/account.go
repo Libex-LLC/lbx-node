@@ -8,5 +8,5 @@ import (
 var (
 	// bnb prefix address:  bnb1v8vkkymvhe2sf7gd2092ujc6hweta38xadu2pj
 	// tbnb prefix address: tbnb1v8vkkymvhe2sf7gd2092ujc6hweta38xnc4wpr
-	PegAccount = sdk.AccAddress(crypto.AddressHash([]byte("BinanceChainPegAccount")))
+	PegAccount = sdk.AccAddress(crypto.AddressHash([]byte("LibexChainPegAccount")))
 )
