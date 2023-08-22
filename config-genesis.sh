@@ -22,6 +22,8 @@ nodesNamesArr=(
 mkdir  ${workspace}/_genTx
 
 for node in ${nodesNamesArr[@]}; do
+  echo "Init node ${node}"
+
   # Make node directory
   mkdir ${workspace}/${node}
 
@@ -36,7 +38,8 @@ for node in ${nodesNamesArr[@]}; do
   nodeID=$(cat ${workspace}/${node}/node.info | jq -r '.node_id')
   pubKey=$(cat ${workspace}/${node}/node.info | jq -r '.pub_key')
   delegator=$(./build/bnbcli keys list --home ${workspace}/${node} | grep ${node}-delegator | awk -F" " '{print $3}')
-   
+
+  echo "Stake funds node ${node}"
   ./build/bnbcli staking create-validator --chain-id="${CHAIN_ID}" \
     --from "${node}" --pubkey ${pubKey} --amount=1000000000:LBX \
     --moniker="${node}" --address-delegator=${delegator} --commission-rate=0 \
@@ -55,5 +58,11 @@ for node in ${nodesNamesArr[@]}; do
     --chain-id="${CHAIN_ID}" --offline > ${workspace}/_genTx/${node}-delegate.json
 done
 
+echo "Generating global genesis.json"
+
 # Generate gloabl genesis.json 
-./build/bnbchaind collect-gentxs --acc-prefix bnb --chain-id ${CHAIN_ID} -i ${workspace}/_genTx -o ${workspace}/genesis.json
+./build/bnbchaind collect-gentxs --acc-prefix lbx --chain-id ${CHAIN_ID} -i ${workspace}/_genTx -o ${workspace}/genesis.json
+
+for node in ${nodesNamesArr[@]}; do
+  cp ${workspace}/genesis.json
+done

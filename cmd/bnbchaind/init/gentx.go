@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	defaultAmount                  = "100000000000:BNB"
+	defaultAmount                  = "100000000000:LBX"
 	defaultCommissionRate          = "0"
 	defaultCommissionMaxRate       = "0"
 	defaultCommissionMaxChangeRate = "0"

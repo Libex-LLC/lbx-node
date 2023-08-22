@@ -83,17 +83,17 @@ ABCIQueryBlackList = []
 
 [addr]
 # Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
-bech32PrefixAccAddr = "tbnb"
+bech32PrefixAccAddr = "tlbx"
 # Bech32PrefixAccPub defines the Bech32 prefix of an account's public key
-bech32PrefixAccPub = "bnbp"
+bech32PrefixAccPub = "lbxp"
 # Bech32PrefixValAddr defines the Bech32 prefix of a validator's operator address
-bech32PrefixValAddr = "bva"
+bech32PrefixValAddr = "lva"
 # Bech32PrefixValPub defines the Bech32 prefix of a validator's operator public key
-bech32PrefixValPub = "bvap"
+bech32PrefixValPub = "lvap"
 # Bech32PrefixConsAddr defines the Bech32 prefix of a consensus node address
-bech32PrefixConsAddr = "bca"
+bech32PrefixConsAddr = "lca"
 # Bech32PrefixConsPub defines the Bech32 prefix of a consensus node public key
-bech32PrefixConsPub = "bcap"
+bech32PrefixConsPub = "lcap"
 
 ##### publication related configurations #####
 [publication]

@@ -111,9 +111,9 @@ var rl = ratelimit.New(1000)
 
 func init() {
 	config := sdk.GetConfig()
-	config.SetBech32PrefixForAccount("tbnb", "bnbp")
-	config.SetBech32PrefixForValidator("bva", "bvap")
-	config.SetBech32PrefixForConsensusNode("bca", "bcap")
+	config.SetBech32PrefixForAccount("tlbx", "lbxp")
+	config.SetBech32PrefixForValidator("lva", "lvap")
+	config.SetBech32PrefixForConsensusNode("lca", "lcap")
 	config.Seal()
 	home = flag.String("home", "/home/test/.bnbcli", "bnbcli --home")
 	node = flag.String("node", "0.0.0.0:26657", "bnbcli --node")
@@ -242,7 +242,7 @@ func execCommand(name string, arg ...string) *bytes.Buffer {
 
 func lookupAccounts() {
 	stdout := execCommand("tbnbcli", "--home="+*home, "keys", "list")
-	expr := "(" + *userPrefix + "[\\d]+).+(tbnb.+).+bnb"
+	expr := "(" + *userPrefix + "[\\d]+).+(tlbx.+).+lbx"
 	res, err := regexp.Compile(expr)
 	if err != nil {
 		panic(err)
