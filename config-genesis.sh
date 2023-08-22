@@ -6,7 +6,7 @@ workspace=/home/donk3y/Projects/lab27/lbx-node/.local
 bnbcli=tbnbcli
 
 accPrefix=lbx
-if [[ $bnbcli==tbnbcli ]]; then
+if [[ $bnbcli = "tbnbcli" ]]; then
   accPrefix=tlbx
 fi
 echo "Account prefix $accPrefix" 
@@ -25,7 +25,8 @@ nodesNamesArr=(
   # "Zugspitze" 
 )
 
-
+rm -rf ${workspace}
+mkdir ${workspace}
 mkdir  ${workspace}/_genTx
 
 for node in ${nodesNamesArr[@]}; do
@@ -35,7 +36,7 @@ for node in ${nodesNamesArr[@]}; do
   mkdir ${workspace}/${node}
 
   # Create unique genesis for each node
-  ./build/bnbchaind init --home ${workspace}/${node} --chain-id "${CHAIN_ID}" --moniker "$node" > ${workspace}/${node}/node.info
+  ./build/bnbchaind init --acc-prefix ${accPrefix} --home ${workspace}/${node} --chain-id "${CHAIN_ID}" --moniker "$node" > ${workspace}/${node}/node.info
 
   # Create delegator and operator (has consensus_addr) account for each node
   echo "${PASSWORD}" | ./build/${bnbcli} keys add ${node}-delegator --home ${workspace}/${node} > ${workspace}/${node}/delegator.info
